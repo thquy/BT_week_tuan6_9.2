@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="EmailListApp:war exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/EmailListApp_war_exploded2</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="EmailListApp" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="EmailListApp/web/Web" />
+    </root>
+  </artifact>
+</component>
