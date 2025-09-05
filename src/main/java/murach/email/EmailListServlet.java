@@ -13,35 +13,47 @@ public class EmailListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/index.html";
-
-        // lấy action từ request
+        String url = "/index.jsp";   // mặc định quay lại form
         String action = request.getParameter("action");
         if (action == null) {
-            action = "join";  // mặc định
+            action = "join"; // mặc định
         }
 
-        // xử lý action
+        // Debug log
+        System.out.println("DEBUG: action=" + action);
+        getServletContext().log("Servlet log: action=" + action);
+
         if (action.equals("join")) {
-            url = "/index.html";  // quay lại form nhập
+            url = "/index.jsp";
         } else if (action.equals("add")) {
-            // lấy dữ liệu từ form
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
 
-            // tạo đối tượng User
-            User user = new User(firstName, lastName, email);
+            // Kiểm tra dữ liệu
+            if (firstName == null || firstName.isEmpty()
+                    || lastName == null || lastName.isEmpty()
+                    || email == null || email.isEmpty()) {
 
-            // lưu user vào “database” giả lập
-            UserDB.insert(user);
+                String message = "All three fields are required!";
+                request.setAttribute("message", message);
+                url = "/index.jsp";
 
-            // gửi user sang thanks.jsp
-            request.setAttribute("user", user);
-            url = "/thanks.jsp";
+                System.out.println("DEBUG: Validation failed");
+                getServletContext().log("Validation failed - missing values");
+
+            } else {
+                User user = new User(firstName, lastName, email);
+                UserDB.insert(user);
+
+                request.setAttribute("user", user);
+                url = "/thanks.jsp";
+
+                System.out.println("DEBUG: user=" + firstName + " " + lastName + ", email=" + email);
+                getServletContext().log("New user added: " + email);
+            }
         }
 
-        // forward sang trang đích
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
@@ -50,6 +62,7 @@ public class EmailListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // gọi doPost để test GET như yêu cầu bước 6
         doPost(request, response);
     }
 }
