@@ -5,27 +5,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Survey Result</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main.css" type="text/css"/>
 </head>
 <body>
-<h2>Thanks for taking our survey!</h2>
+<img src="styles/murach.jpg" alt="Murach Logo" style="width:120px;height:auto;">
 
+<h2 style="color:green;">Thanks for taking our survey!</h2>
 <p>Here is the information that you entered:</p>
-<table>
-    <tr><td>Email:</td><td>${user.email}</td></tr>
-    <tr><td>First Name:</td><td>${user.firstName}</td></tr>
-    <tr><td>Last Name:</td><td>${user.lastName}</td></tr>
-    <tr><td>Date of Birth:</td><td>${user.dob}</td></tr>
-    <tr><td>Heard From:</td><td>${user.heardFrom}</td></tr>
-    <tr><td>Updates:</td><td>
-        <c:choose>
-            <c:when test="${user.wantsUpdates == 'Yes'}">Yes</c:when>
-            <c:otherwise>No</c:otherwise>
-        </c:choose>
-    </td></tr>
-    <tr><td>Contact Via:</td><td>${user.contactVia}</td></tr>
+
+<table border="0" cellpadding="5">
+    <tr>
+        <td><b>Email:</b></td>
+        <td>${user.email}</td>
+    </tr>
+    <tr>
+        <td><b>First Name:</b></td>
+        <td>${user.firstName}</td>
+    </tr>
+    <tr>
+        <td><b>Last Name:</b></td>
+        <td>${user.lastName}</td>
+    </tr>
+    <tr>
+        <td><b>Date of Birth:</b></td>
+        <td>${user.dob}</td>
+    </tr>
+    <tr>
+        <td><b>Heard From:</b></td>
+        <td>${user.heardFrom}</td>
+    </tr>
+    <tr>
+        <td><b>Updates:</b></td>
+        <td>${user.wantsUpdates}</td>
+    </tr>
+    <tr>
+        <td><b>Contact Via:</b></td>
+        <td>${user.contactVia}</td>
+    </tr>
 </table>
 
-<jsp:include page="/includes/footer.jsp"/>
+<br>
+<jsp:include page="includes/footer.jsp" />
 </body>
 </html>

@@ -12,7 +12,7 @@
 <h2>Survey</h2>
 <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
 
-<!-- Hiển thị thông báo lỗi (nếu có) -->
+<!-- Hiển thị thông báo lỗi từ servlet -->
 <%
     String message = (String) request.getAttribute("message");
     if (message != null) {
@@ -23,17 +23,15 @@
 %>
 
 <h3>Your information:</h3>
-<!-- 👉 Gửi sang SurveyServlet -->
 <form action="survey" method="post">
-
     <label>First Name:</label>
-    <input type="text" name="firstName"><br>
+    <input type="text" name="firstName" required><br>
 
     <label>Last Name:</label>
-    <input type="text" name="lastName"><br>
+    <input type="text" name="lastName" required><br>
 
     <label>Email:</label>
-    <input type="text" name="email"><br>
+    <input type="email" name="email" required><br>
 
     <label>Date of Birth:</label>
     <input type="date" name="dob"><br><br>

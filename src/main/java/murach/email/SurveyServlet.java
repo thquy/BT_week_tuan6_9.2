@@ -21,20 +21,31 @@ public class SurveyServlet extends HttpServlet {
         String wantsUpdates = request.getParameter("offers");
         String contact = request.getParameter("contact");
 
-        // Tạo user object
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setDob(dob);
-        user.setHeardFrom(heardFrom);
-        user.setWantsUpdates(wantsUpdates != null ? "Yes" : "No");
-        user.setContactVia(contact);
-
-        // Gửi sang JSP
-        request.setAttribute("user", user);
-
         String url = "/survey.jsp";
+
+        // ✅ Validate: không cho phép rỗng
+        if (firstName == null || firstName.trim().isEmpty()
+                || lastName == null || lastName.trim().isEmpty()
+                || email == null || email.trim().isEmpty()) {
+
+            request.setAttribute("message", "All fields (First Name, Last Name, Email) are required!");
+            url = "/index.jsp";  // quay lại form nếu sai
+
+        } else {
+            // Tạo User object
+            User user = new User();
+            user.setEmail(email);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setDob(dob);
+            user.setHeardFrom(heardFrom);
+            user.setWantsUpdates(wantsUpdates != null ? "Yes" : "No");
+            user.setContactVia(contact);
+
+            // Gửi sang JSP
+            request.setAttribute("user", user);
+        }
+
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
