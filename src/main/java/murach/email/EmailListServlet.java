@@ -1,12 +1,11 @@
 package murach.email;
 
 import java.io.*;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import murach.business.User;
-import murach.data.UserDB;
-import java.time.Year;   // để lấy năm hiện tại
 
 public class EmailListServlet extends HttpServlet {
 
@@ -14,19 +13,11 @@ public class EmailListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/index.jsp";   // mặc định quay lại form
+        String url = "/index.jsp";
         String action = request.getParameter("action");
         if (action == null) {
-            action = "join"; // mặc định
+            action = "join";
         }
-
-        // ✅ set currentYear cho mọi request (bài 6-1)
-        int currentYear = Year.now().getValue();
-        request.setAttribute("currentYear", currentYear);
-
-        // Debug log
-        System.out.println("DEBUG: action=" + action);
-        getServletContext().log("Servlet log: action=" + action);
 
         if (action.equals("join")) {
             url = "/index.jsp";
@@ -34,28 +25,43 @@ public class EmailListServlet extends HttpServlet {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
+            String dob = request.getParameter("dob");
+            String heardFrom = request.getParameter("hear");
+            String updates = request.getParameter("offers");
+            String contact = request.getParameter("contact");
 
-            // Kiểm tra dữ liệu
             if (firstName == null || firstName.isEmpty()
                     || lastName == null || lastName.isEmpty()
                     || email == null || email.isEmpty()) {
-
-                String message = "All three fields are required!";
+                String message = "All three fields (first name, last name, email) are required!";
                 request.setAttribute("message", message);
                 url = "/index.jsp";
-
-                System.out.println("DEBUG: Validation failed");
-                getServletContext().log("Validation failed - missing values");
-
             } else {
-                User user = new User(firstName, lastName, email);
-                UserDB.insert(user);
+                User user = new User();
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setEmail(email);
+                user.setDob(dob);
+                user.setHeardFrom(heardFrom);
+                user.setWantsUpdates(updates != null ? "Yes" : "No");
+                user.setContactVia(contact);
 
+                // Lưu user vào request
                 request.setAttribute("user", user);
-                url = "/thanks.jsp";
 
-                System.out.println("DEBUG: user=" + firstName + " " + lastName + ", email=" + email);
-                getServletContext().log("New user added: " + email);
+                // Lưu currentDate vào request
+                request.setAttribute("currentDate", new Date());
+
+                // Lưu danh sách users vào session
+                HttpSession session = request.getSession();
+                List<User> users = (List<User>) session.getAttribute("users");
+                if (users == null) {
+                    users = new ArrayList<>();
+                }
+                users.add(user);
+                session.setAttribute("users", users);
+
+                url = "/thanks.jsp";
             }
         }
 
@@ -67,7 +73,6 @@ public class EmailListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // gọi doPost để test GET như yêu cầu bài 5-1 và 6-1
         doPost(request, response);
     }
 }
