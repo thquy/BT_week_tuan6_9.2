@@ -23,5 +23,7 @@
     <input type="hidden" name="action" value="join">
     <input type="submit" value="Return">
 </form>
+<p>To enter another email address, click on the Back button in your browser.</p>
+<jsp:include page="includes/footer.jsp" />
 </body>
 </html>

@@ -12,19 +12,19 @@
 <h2>Survey</h2>
 <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
 
-<!-- Hiển thị thông báo lỗi (nếu có) -->
+<!-- Hiển thị thông báo lỗi từ servlet -->
 <%
-    String message = (String) request.getAttribute("message");
-    if (message != null) {
+String message = (String) request.getAttribute("message");
+if (message != null) {
 %>
 <p style="color:red;"><%= message %></p>
 <%
-    }
+}
 %>
 
 <h3>Your information:</h3>
-<!-- 👉 Gửi sang SurveyServlet -->
-<form action="survey" method="post">
+<form action="emailList" method="post">
+    <input type="hidden" name="action" value="add">
 
     <label>First Name:</label>
     <input type="text" name="firstName"><br>
@@ -39,10 +39,10 @@
     <input type="date" name="dob"><br><br>
 
     <h3>How did you hear about us?</h3>
-    <input type="radio" name="hear" value="Search engine" checked> Search engine
-    <input type="radio" name="hear" value="Word of mouth"> Word of mouth
-    <input type="radio" name="hear" value="Social Media"> Social Media
-    <input type="radio" name="hear" value="Other"> Other
+    <input type="radio" name="hear" value="search" checked> Search engine
+    <input type="radio" name="hear" value="word"> Word of mouth
+    <input type="radio" name="hear" value="social"> Social Media
+    <input type="radio" name="hear" value="other"> Other
     <br><br>
 
     <h3>Would you like to receive announcements about new CDs and special offers?</h3>
@@ -59,7 +59,6 @@
 
     <input type="submit" value="Submit" id="submit">
 </form>
-
 <jsp:include page="includes/footer.jsp" />
 </body>
 </html>

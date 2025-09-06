@@ -7,10 +7,20 @@ public class User implements Serializable {
     private String lastName;
     private String email;
 
+    // 👉 Thêm các field mới cho Survey
+    private String dob;
+    private String heardFrom;
+    private String wantsUpdates;
+    private String contactVia;
+
     public User() {
         this.firstName = "";
         this.lastName = "";
         this.email = "";
+        this.dob = "";
+        this.heardFrom = "";
+        this.wantsUpdates = "No";
+        this.contactVia = "";
     }
 
     public User(String firstName, String lastName, String email) {
@@ -19,27 +29,26 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    // Getter/Setter cho firstName, lastName, email
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public String getLastName() {
-        return lastName;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    // 👉 Getter/Setter mới
+    public String getDob() { return dob; }
+    public void setDob(String dob) { this.dob = dob; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getHeardFrom() { return heardFrom; }
+    public void setHeardFrom(String heardFrom) { this.heardFrom = heardFrom; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getWantsUpdates() { return wantsUpdates; }
+    public void setWantsUpdates(String wantsUpdates) { this.wantsUpdates = wantsUpdates; }
+
+    public String getContactVia() { return contactVia; }
+    public void setContactVia(String contactVia) { this.contactVia = contactVia; }
 }

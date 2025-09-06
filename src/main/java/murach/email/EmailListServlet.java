@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 
 import murach.business.User;
 import murach.data.UserDB;
+import java.time.Year;   // để lấy năm hiện tại
 
 public class EmailListServlet extends HttpServlet {
 
@@ -18,6 +19,10 @@ public class EmailListServlet extends HttpServlet {
         if (action == null) {
             action = "join"; // mặc định
         }
+
+        // ✅ set currentYear cho mọi request (bài 6-1)
+        int currentYear = Year.now().getValue();
+        request.setAttribute("currentYear", currentYear);
 
         // Debug log
         System.out.println("DEBUG: action=" + action);
@@ -62,7 +67,7 @@ public class EmailListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // gọi doPost để test GET như yêu cầu bước 6
+        // gọi doPost để test GET như yêu cầu bài 5-1 và 6-1
         doPost(request, response);
     }
 }

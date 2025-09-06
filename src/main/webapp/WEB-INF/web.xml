@@ -9,6 +9,15 @@
         <servlet-name>EmailListServlet</servlet-name>
         <servlet-class>murach.email.EmailListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SurveyServlet</servlet-name>
+        <servlet-class>murach.email.SurveyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SurveyServlet</servlet-name>
+        <url-pattern>/survey</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>EmailListServlet</servlet-name>
@@ -21,6 +30,6 @@
 
     <!-- Đặt index.jsp làm trang mặc định -->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>emailList</welcome-file>
     </welcome-file-list>
 </web-app>
