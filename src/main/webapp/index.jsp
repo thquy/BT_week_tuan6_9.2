@@ -10,9 +10,16 @@
 <body>
 <img src="styles/murach.jpg" alt="Murach Logo" style="width:120px;height:auto;">
 
-<h2>Survey</h2>
-<p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
+<!-- Mở rộng 9-1: hiển thị thông điệp chào mừng nếu có cookie firstName -->
+<c:if test="${not empty cookie.firstName.value}">
+    <h2>Welcome back, <c:out value="${cookie.firstName.value}" />!</h2>
+</c:if>
+<c:if test="${empty cookie.firstName.value}">
+    <h2>Survey</h2>
+    <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
+</c:if>
 
+<!-- Giữ nguyên hiển thị message cũ -->
 <c:if test="${not empty message}">
     <p style="color:red;">${message}</p>
 </c:if>
